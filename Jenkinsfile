@@ -40,8 +40,8 @@ pipeline {
 
         stage('Kill Docker Container') {
             steps {
-                sh 'docker stop nodejspython || true'
-                sh 'docker rm nodejspython || true'
+                sh 'sudo docker stop nodejspython || true'
+                sh 'sudo docker rm nodejspython || true'
             }
         }
 
@@ -49,7 +49,7 @@ pipeline {
             steps {
                 script {
                     // Run the Docker image, changing the port to 3001 and using 'NodeJSPython' as the image name
-                    sh 'docker run -d -p 3001:3001 --name nodejspython nodejspython'
+                    sh 'sudo docker run -d -p 3001:3001 --name nodejspython nodejspython'
                 }
             }
         }
