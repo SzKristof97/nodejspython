@@ -38,12 +38,10 @@ pipeline {
             }
         }
 
-        stage('Remove Old Docker Image') {
+        stage('Kill Docker Container') {
             steps {
-                script {
-                    // Remove the old Docker image if it exists, now using 'NodeJSPython' as the image name
-                    sh 'docker rmi $(docker images -q nodejspython:previous) || true'
-                }
+                sh 'docker stop dashboard || true'
+                sh 'docker rm dashboard || true'
             }
         }
 
