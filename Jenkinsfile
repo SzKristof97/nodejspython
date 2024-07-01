@@ -64,19 +64,18 @@ pipeline {
         }
         success {
             script {
-                sendDiscordNotification("Build Succeeded", , 65280)
+                sendDiscordNotification("Build Succeeded", 65280)
             }
         }
     }
 }
 
-def sendDiscordNotification(description,content,color) {
+def sendDiscordNotification(content,color) {
     def payload = """
     {
         "embeds": [{
             "username": "Jenkins",
             "title": "${DISCORD_TITLE}",
-            "description": "${description}",
             "content": "${content}",
             "color": ${color}
         }]
