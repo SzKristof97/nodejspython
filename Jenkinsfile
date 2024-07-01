@@ -40,8 +40,8 @@ pipeline {
 
         stage('Kill Docker Container') {
             steps {
-                sh 'docker stop dashboard || true'
-                sh 'docker rm dashboard || true'
+                sh 'docker stop nodejspython || true'
+                sh 'docker rm nodejspython || true'
             }
         }
 
