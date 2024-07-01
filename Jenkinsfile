@@ -70,13 +70,13 @@ pipeline {
     }
 }
 
-def sendDiscordNotification(content,color) {
+def sendDiscordNotification(description,color) {
     def payload = """
     {
         "embeds": [{
             "username": "Jenkins",
             "title": "${DISCORD_TITLE}",
-            "content": "${content}",
+            "description": "${description}",
             "color": ${color}
         }]
     }
