@@ -1,0 +1,28 @@
+{
+  "name": "nodejspython",
+  "version": "1.0.0",
+  "description": "Simple NodeJS project to run and serve the Python results",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"WARNING: no test specified\"",
+    "dev": "nodemon start.js --watch . --watch public -e js,html,css",
+    "start": "node start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SzKristof97/nodejspython.git"
+  },
+  "author": "SZAKI",
+  "license": "GPL-3.0+",
+  "bugs": {
+    "url": "https://github.com/SzKristof97/nodejspython/issues"
+  },
+  "homepage": "https://github.com/SzKristof97/nodejspython#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "dependencies": {
+    "node": "^20.15.0",
+    "express": "^4.19.2"
+  }
+}
