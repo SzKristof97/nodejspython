@@ -15,7 +15,7 @@ pipeline {
         {
             steps {
                 script {
-                    sendDiscordNotification("Build Started")
+                    sendDiscordNotification("Build Started", 16776960)
                 }
             }
         }
@@ -25,15 +25,6 @@ pipeline {
                 script {
                     // For a Node.js project, use npm to install dependencies
                     sh 'npm install'
-                }
-            }
-        }
-
-        stage('Build') {
-            steps {
-                script {
-                    // Now that dependencies are installed, run the build script
-                    sh 'npm run build' // Adjust this command based on your project's build script
                 }
             }
         }
@@ -60,29 +51,32 @@ pipeline {
             steps {
                 script {
                     // Run the Docker image, changing the port to 3001 and using 'NodeJSPython' as the image name
-                    sh 'docker run -d -p 3001:3001 NodeJSPython'
+                    sh 'docker run -d -p 3001:3001 --name NodeJSPython NodeJSPython'
                 }
             }
         }
-
-        stage('Discord Notification - Build Finished')
-        {
-            steps {
-                script {
-                    sendDiscordNotification("Build Finished")
-                }
+    }
+    post{
+        failure {
+            script {
+                sendDiscordNotification("Build Failed", 16711680)
+            }
+        }
+        success {
+            script {
+                sendDiscordNotification("Build Succeeded", 65280)
             }
         }
     }
 }
 
-def sendDiscordNotification(description) {
+def sendDiscordNotification(description,color) {
     def payload = """
     {
         "embeds": [{
             "title": "${DISCORD_TITLE}",
             "description": "${description}",
-            "color": 5814783
+            "color": ${color}
         }]
     }
     """
