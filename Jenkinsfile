@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     // Change 'my-app' to 'NodeJSPython' for the Docker image name
-                    sh 'docker build -t NodeJSPython .'
+                    sh 'docker build -t nodejspython .'
                 }
             }
         }
@@ -42,7 +42,7 @@ pipeline {
             steps {
                 script {
                     // Remove the old Docker image if it exists, now using 'NodeJSPython' as the image name
-                    sh 'docker rmi $(docker images -q NodeJSPython:previous) || true'
+                    sh 'docker rmi $(docker images -q nodejspython:previous) || true'
                 }
             }
         }
@@ -51,7 +51,7 @@ pipeline {
             steps {
                 script {
                     // Run the Docker image, changing the port to 3001 and using 'NodeJSPython' as the image name
-                    sh 'docker run -d -p 3001:3001 --name NodeJSPython NodeJSPython'
+                    sh 'docker run -d -p 3001:3001 --name nodejspython nodejspython'
                 }
             }
         }
@@ -64,18 +64,20 @@ pipeline {
         }
         success {
             script {
-                sendDiscordNotification("Build Succeeded", 65280)
+                sendDiscordNotification("Build Succeeded", , 65280)
             }
         }
     }
 }
 
-def sendDiscordNotification(description,color) {
+def sendDiscordNotification(description,content,color) {
     def payload = """
     {
         "embeds": [{
+            "username": "Jenkins",
             "title": "${DISCORD_TITLE}",
             "description": "${description}",
+            "content": "${content}",
             "color": ${color}
         }]
     }
